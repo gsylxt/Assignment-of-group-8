@@ -194,7 +194,7 @@
                 },
                 minus() {
                     if (this.JsonWord.display_1 >= 0) {
-                        Math.abs(this.JsonWord.display_1)
+                        this.JsonWord.display_1 = -Math.abs(this.JsonWord.display_1)
                     }
                 },
                 point() {
