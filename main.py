@@ -16,10 +16,10 @@ def test_sin():
         # 生成1000个(0,360)的随机数
         array.append(random.uniform(0, 360))
     for i in range(1000):
+        sys_value = Sin.sin(array[i])
         # 将角度转换成弧度
         array[i] = math.pi*(array[i]/180)
         lib_value = math.sin(array[i])
-        sys_value = Sin.sin(array[i])
         if abs(lib_value - sys_value) < 0.0001:
             cor = cor + 1
         else:
@@ -36,10 +36,10 @@ def test_cos():
         # 生成1000个(0,360)的随机数
         array.append(random.uniform(0, 360))
     for i in range(1000):
+        sys_value = Cos.cos(array[i])
         # 将角度转换成弧度
         array[i] = math.pi * (array[i] / 180)
         lib_value = math.cos(array[i])
-        sys_value = Cos.cos(array[i])
         if abs(lib_value - sys_value) < 0.0001:
             cor = cor + 1
         else:
