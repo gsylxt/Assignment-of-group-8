@@ -15,7 +15,7 @@ def test_sin():
     for _ in range(1000):
         # 生成1000个(0,360)的随机数
         array.append(random.uniform(0, 360))
-    for i in range(100):
+    for i in range(1000):
         # 将角度转换成弧度
         array[i] = math.pi*(array[i]/180)
         lib_value = math.sin(array[i])
@@ -55,7 +55,7 @@ def test_arcsin():
     for _ in range(1000):
         # 生成1000个(-1,1)的随机数
         array.append(random.uniform(-1, 1))
-    for i in range(100):
+    for i in range(1000):
         # 将库函数计算出的弧度值转换成角度
         lib_value = 180*math.asin(array[i])/math.pi
         sys_value = Arcsin.arcsin(array[i])
@@ -72,9 +72,9 @@ def test_arctan():
     cor = 0
     err = 0
     for _ in range(1000):
-        # 生成100个(-1,1)的随机数
+        # 生成1000个(-1,1)的随机数
         array.append(random.uniform(-10e6, 10e6))
-    for i in range(100):
+    for i in range(1000):
         # 将库函数计算出的弧度值转换成角度
         lib_value = 180*math.atan(array[i])/math.pi
         sys_value = Arctan.arctan(array[i])
