@@ -12,8 +12,8 @@ def test_sin():
     array = []
     cor = 0
     err = 0
-    for _ in range(100):
-        # 生成100个(0,360)的随机数
+    for _ in range(1000):
+        # 生成1000个(0,360)的随机数
         array.append(random.uniform(0, 360))
     for i in range(100):
         # 将角度转换成弧度
@@ -33,7 +33,7 @@ def test_cos():
     cor = 0
     err = 0
     for _ in range(1000):
-        # 生成100个(0,360)的随机数
+        # 生成1000个(0,360)的随机数
         array.append(random.uniform(0, 360))
     for i in range(1000):
         # 将角度转换成弧度
@@ -53,7 +53,7 @@ def test_arcsin():
     cor = 0
     err = 0
     for _ in range(1000):
-        # 生成100个(-1,1)的随机数
+        # 生成1000个(-1,1)的随机数
         array.append(random.uniform(-1, 1))
     for i in range(100):
         # 将库函数计算出的弧度值转换成角度
