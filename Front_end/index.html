@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>三角函数计算器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="Transition"></div>
+        <div class="Head">
+            <div class="display_1">
+                <p>{{JsonWord.display_1}}</p>
+            </div>
+            <div class="display_2">
+                <p style="font-size: 15px;">{{JsonWord.display_2}}</p>
+            </div>
+        </div>
+        <div class="Transition"></div>
+        <div class="Number">
+            <Button class="number_button" style="margin-top: 0px;" @click="procession_1(1)">1</Button>
+            <Button class="number_button" style="margin-top: 0px;" @click="procession_1(2)">2</Button>
+            <Button class="number_button" style="margin-top: 0px;" @click="procession_1(3)">3</Button>
+            <Button class="number_button" @click="procession_1(4)">4</Button>
+            <Button class="number_button" @click="procession_1(5)">5</Button>
+            <Button class="number_button" @click="procession_1(6)">6</Button>
+            <Button class="number_button" @click="procession_1(7)">7</Button>
+            <Button class="number_button" @click="procession_1(8)">8</Button>
+            <Button class="number_button" @click="procession_1(9)">9</Button>
+            <Button class="number_button" @click="procession_2">0</Button>
+            <Button class="number_button" @click="procession_3">00</Button>
+            <Button class="number_button" @click="procession_4">000</Button>
+            <Button class="number_button" @click="minus">-</Button>
+            <Button class="number_button" @click="point">.</Button>
+            <Button class="number_button" @click="answer_1">=</Button>
+        </div>
+        <div class="Function">
+            <Button class="function_buttom" style="margin-top: 0px;" @click="sin">sin</Button>
+            <Button class="function_buttom" @click="cos">cos</Button>
+            <Button class="function_buttom" @click="arcsin">arcsin</Button>
+            <Button class="function_buttom" @click="arctan">arctan</Button>
+            <Button class="function_buttom" @click="abdication">退位</Button>
+            <Button class="function_buttom" @click="purge">清除</Button>
+        </div>
+        <div class="Transition" style="display: inline-block;"></div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16/dist/vue.js"></script>
+
+    <script>
+
+        // var ws = new WebSocket("ws://localhost:8765");
+        // ws.onopen = function () {
+        //     alert("链接成功")
+        //     console.log('连接成功')
+        //     ws.send("hello")
+        // };
+        // ws.onerror = function () {
+        //     alert("链接失败")
+        // };
+
+        // ws.onmessage = function (e) {
+        //     console.log(e.data)
+        //     let msg = JSON.parse(e.data);
+        //     // [person1.sid, person1.sname, person1.s_birth, person1.s_sex] = msg[0];
+        //     console.log(msg)
+        // }
+        // window.onbeforeunload = function () {
+        //     ws.close();
+        // }
+        // ws.onclose = function (evt) {
+        //     console.log("关闭客户端连接");
+        // };
+
+
+        var JsonWord = { display_1: '', display_2: '' };
+        let flag = 1;
+        let number = 0;
+        // let answer = 0;
+        const app = new Vue({
+            el: '#app',
+            data: {
+                // TypeOfTrigonometricFunctions: '',
+                number: '',
+                // answer: '',
+                flag: '',
+                //修改
+                decimalFlag: false,
+                decimalMultiplier: 0.1,
+                JsonWord: {
+                    display_1: '',
+                    display_2: ''
+                }
+            },
+            methods: {
+                sin() {
+                    this.TypeOfTrigonometricFunctions = "sin"
+                    this.JsonWord.display_2 = 'sin'
+                },
+                cos() {
+                    this.TypeOfTrigonometricFunctions = "cos"
+                    this.JsonWord.display_2 = 'cos'
+                },
+                arcsin() {
+                    this.TypeOfTrigonometricFunctions = "arcsin"
+                    this.JsonWord.display_2 = 'arcsin'
+                },
+                arctan() {
+                    this.TypeOfTrigonometricFunctions = "arctan"
+                    this.JsonWord.display_2 = 'arctan'
+                },
+                procession_1(n) {
+                    if (this.flag == 1) {
+                        this.number = n;
+                        this.JsonWord.display_1 = this.number.toString();
+                        this.JsonWord.display_2 = '';
+                        this.flag = 0;
+                        this.decimalFlag = false; // 重置小数点标志
+                        this.decimalMultiplier = 0.1; // 重置小数位乘数
+                    } else {
+                        if (this.decimalFlag) {
+                            // 处理小数部分
+                            this.number = parseFloat(this.number) + n * this.decimalMultiplier;
+                            this.JsonWord.display_1 = this.number.toString();
+                            this.decimalMultiplier /= 10; // 更新小数位乘数
+                            console.log(this.JsonWord.display_1)
+                        } else {
+                            this.number = this.number * 10 + n;
+                            this.JsonWord.display_1 = this.number.toString();
+                        }
+
+                    }
+                    //flag为1，说明按下=，有answer，将数字键，将重新计算
+                    // if (this.flag == 1) {
+                    //     this.number = n
+                    //     this.JsonWord.display_1 = this.number
+                    //     this.JsonWord.display_2 = ''
+                    //     this.flag = 0
+                    //     console.log("执行了吗")
+                    //     console.log(this.flag)
+                    // } else {
+                    //     this.number = this.number * 10 + n
+                    //     this.JsonWord.display_1 = this.number
+                    //     console.log("执行了")
+                    // }
+
+                },
+                procession_2() {
+                    if (this.decimalFlag) {
+                        // this.JsonWord.display_1 = this.JsonWord.display_1
+                        this.JsonWord.display_1 = this.JsonWord.display_1.toString() + '0';
+                    } else {
+                        if (this.flag == 1) {
+                            this.number = 0;
+                            this.JsonWord.display_1 = this.number
+                            this.flag = 0;
+                        } else {
+                            this.number = this.number * 10
+                            this.JsonWord.display_1 = this.number
+                        }
+                    }
+                },
+                procession_3() {
+                    if (this.decimalFlag) {
+                        // this.JsonWord.display_1 = this.JsonWord.display_1
+                        this.JsonWord.display_1 = this.JsonWord.display_1.toString() + '00';
+                    } else {
+                        if (this.flag == 1) {
+                            this.number = 0;
+                            this.flag = 0;
+                        } else {
+                            this.number = this.number * 100
+                            this.JsonWord.display_1 = this.number
+                        }
+                    }
+                },
+                procession_4() {
+                    if (this.decimalFlag) {
+                        // this.JsonWord.display_1 = this.JsonWord.display_1
+                        this.JsonWord.display_1 = this.JsonWord.display_1.toString() + '000';
+                    } else {
+                        if (this.flag == 1) {
+                            this.number = 0;
+                            this.flag = 0;
+                        } else {
+                            this.number = this.number * 1000
+                            this.JsonWord.display_1 = this.number
+                        }
+                    }
+                },
+                minus() {
+                    if (this.JsonWord.display_1 >= 0) {
+                        this.JsonWord.display_1 = -Math.abs(this.JsonWord.display_1)
+                    }
+                },
+                point() {
+                    if (this.decimalFlag) {
+                        this.JsonWord.display_1 = this.JsonWord.display_1
+                    } else {
+                        this.decimalFlag = true;
+                        this.JsonWord.display_1 = this.JsonWord.display_1.toString() + '.';
+                    }
+                },
+                async answer_1() {
+                    this.JsonWord.display_1 = this.number;
+                    this.flag = 1;
+                    let sentmsg = JSON.stringify(this.JsonWord);
+                    let recvmsg = {};
+
+                    var ws = new WebSocket("ws://localhost:8765");
+                    ws.onopen = function () {
+                        console.log('连接成功');
+                        ws.send(sentmsg);
+                        console.log(sentmsg);
+                    };
+
+                    ws.onerror = function () {
+                        alert("链接失败");
+                    };
+
+                    ws.onmessage = function (e) {
+                        console.log(e.data);
+                        let msg = JSON.parse(e.data);
+                        console.log(msg);
+                        recvmsg.display_1 = msg.display_1;
+                        recvmsg.display_2 = msg.display_2;
+                    };
+
+                    window.onbeforeunload = function () {
+                        ws.close();
+                    };
+
+                    ws.onclose = function (evt) {
+                        console.log("关闭客户端连接");
+                    };
+
+                    // 等待 WebSocket 消息返回后更新 this.JsonWord
+                    await new Promise((resolve) => {
+                        ws.onmessage = function (e) {
+                            let msg = JSON.parse(e.data);
+                            recvmsg.display_1 = msg.display_1;
+                            recvmsg.display_2 = msg.display_2;
+                            resolve();
+                        };
+                    });
+
+                    this.JsonWord.display_1 = recvmsg.display_1;
+                    this.JsonWord.display_2 = recvmsg.display_2;
+                    console.log(this.JsonWord);
+                },
+                purge() {
+                    this.JsonWord.display_1 = 0
+                    this.number = 0
+                    this.flag = 1
+                    this.TypeOfTrigonometricFunctions = ""
+                },
+                abdication() {
+                    this.number = parseInt(this.number / 10)
+                    this.JsonWord.display_1 = this.number
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>
